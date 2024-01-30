@@ -59,5 +59,40 @@ namespace _12A_Tetris
             }
             return true;
         }
+
+        private void ClearRow(int row)
+        {
+            for (int column = 0; column < Columns; column++)
+            {
+                grid[row, column] = 0;
+            }
+        }
+
+        private void MoveRowDown(int row, int numRows)
+        {
+            for (int column = 0; column < Columns; column++)
+            {
+                grid[row + numRows, column] = grid[row, column];
+                grid[row, column] = 0;
+            }
+        }
+
+        public int ClearFullRows()
+        {
+            int rowsCleared = 0;
+            for (int row = Rows - 1; row >= 0; row--)
+            {
+                if (IsRowFull(row))
+                {
+                    ClearRow(row);
+                    rowsCleared++;
+                }
+                else if(rowsCleared > 0)
+                {
+                    MoveRowDown(row, rowsCleared);
+                }
+            }
+            return rowsCleared;
+        }
     }
 }
