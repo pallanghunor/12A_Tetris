@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace _12A_Tetris
 {
-    public class JBlock : Block
+    public class TBlock : Block
     {
-        //Position(row,column)
         private Position[][] tiles = new Position[][]
         {
             new Position[]
             {
-                new Position(0, 0),
+                new Position(0, 1),
                 new Position(1, 0),
                 new Position(1, 1),
                 new Position(1, 2)
@@ -21,13 +20,13 @@ namespace _12A_Tetris
             new Position[]
             {
                 new Position(0, 1),
-                new Position(0, 2),
+                new Position(1, 2),
                 new Position(1, 1),
                 new Position(2, 1)
             },
             new Position[]
             {
-                new Position(2, 2),
+                new Position(2, 1),
                 new Position(1, 0),
                 new Position(1, 1),
                 new Position(1, 2)
@@ -37,7 +36,7 @@ namespace _12A_Tetris
                 new Position(0, 1),
                 new Position(1, 1),
                 new Position(2, 1),
-                new Position(2, 0)
+                new Position(1, 0)
             }
         };
 
