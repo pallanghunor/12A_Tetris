@@ -21,7 +21,7 @@ namespace _12A_Tetris
 
         public override int Id
         {
-            get { return 2; }
+            get { return 4; }
         }
         protected override Position StartOffset
         {

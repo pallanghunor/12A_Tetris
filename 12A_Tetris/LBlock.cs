@@ -26,10 +26,10 @@ namespace _12A_Tetris
             },
             new Position[]
             {
-                new Position(2, 0),
                 new Position(1, 0),
                 new Position(1, 1),
-                new Position(1, 2)
+                new Position(1, 2),
+                new Position(2, 0)
             },
             new Position[]
             {
@@ -42,11 +42,11 @@ namespace _12A_Tetris
 
         public override int Id
         {
-            get { return 1; }
+            get { return 3; }
         }
         protected override Position StartOffset
         {
-            get { return new Position(-1, 3); }
+            get { return new Position(0, 3); }
         }
         protected override Position[][] Tiles
         {
