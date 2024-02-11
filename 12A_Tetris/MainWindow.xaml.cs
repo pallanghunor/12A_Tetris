@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +17,7 @@ namespace _12A_Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         private ImageSource[] tileImages = new ImageSource[]
         {
             new BitmapImage(new Uri("Assets/TileEmpty.png", UriKind.Relative)),
@@ -39,7 +41,7 @@ namespace _12A_Tetris
             new BitmapImage(new Uri("Assets/Block-T.png", UriKind.Relative)),
             new BitmapImage(new Uri("Assets/Block-Z.png", UriKind.Relative))
         };
-
+        
         private Game game = new Game();
         public MainWindow()
         {
@@ -130,6 +132,7 @@ namespace _12A_Tetris
             DrawCurrentBlock(game.CurrentBlock);
             DrawBlockQueue(game.BlockQueue);
             scoreTxtBlck.Text = $"Score: {game.Score}";
+            highscoreTxtBlck.Text = $"Highest score: {HighScore()}";
         }
 
         private async Task GameLoop()
@@ -144,6 +147,7 @@ namespace _12A_Tetris
 
             GameOverMenu.Visibility = Visibility.Visible;
             FinalScoreTxtBlck.Text = $"Final Score: {game.Score}";
+            FileWrite(game.Score);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -193,6 +197,33 @@ namespace _12A_Tetris
             if (MessageBox.Show("Do you want to close this window?","Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 this.Close();
+            }
+        }
+
+        private void FileWrite(int NewScore)
+        {
+            StreamWriter sw = new StreamWriter("HighScore.txt", true);
+            sw.WriteLine($"{NewScore}");
+            sw.Close();
+        }
+
+        private int HighScore() 
+        {
+            if (File.Exists("HighScore.txt"))
+            {
+                List<int> list = new List<int>();
+                StreamReader sr = new StreamReader("HighScore.txt");
+                while (!sr.EndOfStream)
+                {
+                    list.Add(int.Parse(sr.ReadLine()));
+                }
+                sr.Close();
+                return list.Max();
+
+            }
+            else
+            {
+                return 0;
             }
         }
     }
