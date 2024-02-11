@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_12A_Tetris"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown">
+        Title="Tetris" Height="1080" Width="1920" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Window.Resources>
         <LinearGradientBrush x:Key="WindowBackround" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Color="Black" Offset="-0.05" />
@@ -19,7 +19,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -64,7 +64,7 @@
         <Border Grid.Column="2" 
                 Height="40" Width="40" Margin="20"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
-                Background="Purple" CornerRadius="30">
+                Background="Purple">
             <Button x:Name="closeBtn" Style="{StaticResource closeButton}" Width="40" Content="X" FontSize="30" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Click="Exit_Click"/>
         </Border>
 
@@ -80,8 +80,8 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="PauseTxtBlck" Text="Pause" FontSize="100" TextAlignment="Center" Foreground="White"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="ResumeBtn" Content="Resume" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
-                    <Button x:Name="ExitBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
+                    <Button x:Name="ResumeBtn" Content="Resume" Background="Green" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
+                    <Button x:Name="ExitBtn" Content="Exit" Background="red" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
@@ -90,8 +90,8 @@
                 <TextBlock x:Name="GameOverTxtBlck" Text="Game Over" FontSize="100" Foreground="White"/>
                 <TextBlock x:Name="FinalScoreTxtBlck" Text="Score: 0" FontSize="70" Foreground="White" Margin="0,0,0,50" TextAlignment="Center"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="RestartBtn" Content="Restart" FontSize="50" Width="200" Height="100" Margin="20" Click="Restart_Click"/>
-                    <Button x:Name="ExiBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
+                    <Button x:Name="RestartBtn" Content="Restart" Background="Green" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Restart_Click"/>
+                    <Button x:Name="ExiBtn" Content="Exit" Background="Red" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
