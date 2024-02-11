@@ -44,7 +44,6 @@ namespace _12A_Tetris
         public MainWindow()
         {
             InitializeComponent();
-            GameLoop();
         }
 
         private void GenerateGameGrid()
@@ -137,9 +136,16 @@ namespace _12A_Tetris
             Draw();
             while (!game.GameOver)
             {
-                await Task.Delay(500);
-                game.MoveBlockDown();
-                Draw();
+                if (!game.Paused)
+                {
+                    await Task.Delay(500);
+                    game.MoveBlockDown();
+                    Draw();
+                } 
+                else
+                {
+                    await Task.Delay(1);
+                }
             }
 
             GameOverMenu.Visibility = Visibility.Visible;
@@ -148,7 +154,7 @@ namespace _12A_Tetris
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (game.GameOver)
+            if (game.GameOver || game.Paused)
             {
                 return;
             }
@@ -173,6 +179,10 @@ namespace _12A_Tetris
                 case Key.Space:
                     game.DropBlock();
                     break;
+                case Key.P:
+                    game.Paused = true;
+                    PauseMenu.Visibility = Visibility.Visible;
+                    break;
                 default:
                     return;
             }
@@ -194,6 +204,18 @@ namespace _12A_Tetris
             {
                 this.Close();
             }
+        }
+
+        private void ResumeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            game.Paused = false;
+            PauseMenu.Visibility = Visibility.Hidden;
+        }
+
+        private async void StartGameBtn_Click(object sender, RoutedEventArgs e)
+        {
+            startGameMenu.Visibility = Visibility.Hidden;
+            await GameLoop();
         }
     }
 }

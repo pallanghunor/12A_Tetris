@@ -14,6 +14,23 @@
             <GradientStop Color="Purple" Offset="0.8" />
             <GradientStop Color="Black" Offset="1.05" />
         </LinearGradientBrush>
+        <Style x:Key="closeButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <StaticResource ResourceKey="WindowBackround"/>
@@ -40,18 +57,32 @@
                 </Grid>
             </Border>
         </StackPanel>
-        
-        
+
+        <Border Grid.Column="2" 
+                Height="40" Width="40" Margin="20"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Background="Purple" CornerRadius="30">
+            <Button x:Name="closeBtn" Style="{StaticResource closeButton}" Height="40" Width="40" Content="X" FontSize="25" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0"/>
+        </Border>
+
+        <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="100" Foreground="White"/>
+                <DockPanel HorizontalAlignment="Center">
+                    <Button x:Name="StartGameBtn" Content="Start" FontSize="50" Width="300" Background="Green" Foreground="White" Height="100" Margin="20" Click="StartGameBtn_Click"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
         <Grid x:Name="PauseMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="PauseTxtBlck" Text="Pause" FontSize="100" TextAlignment="Center" Foreground="White"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="ResumeBtn" Content="Resume" FontSize="50" Width="200" Height="100" Margin="20"/>
+                    <Button x:Name="ResumeBtn" Content="Resume" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
                     <Button x:Name="ExitBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
-        <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
+        <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="GameOverTxtBlck" Text="Game Over" FontSize="100" Foreground="White"/>
                 <TextBlock x:Name="FinalScoreTxtBlck" Text="Score: 0" FontSize="70" Foreground="White" Margin="0,0,0,50" TextAlignment="Center"/>

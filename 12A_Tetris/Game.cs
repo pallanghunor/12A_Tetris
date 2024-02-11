@@ -33,6 +33,7 @@ namespace _12A_Tetris
         public GameGrid Grid { get; }
         public BlockQueue BlockQueue { get; }
         public bool GameOver { get; private set; }
+        public bool Paused { get; set; }
         public int Score { get; private set; }
 
         public Game()
