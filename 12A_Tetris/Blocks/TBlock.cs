@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _12A_Tetris
+namespace _12A_Tetris.Blocks
 {
-    public class JBlock : Block
+    public class TBlock : Block
     {
-        //Position(row,column)
         private Position[][] tiles = new Position[][]
         {
             new Position[]
             {
-                new Position(0, 0),
+                new Position(0, 1),
                 new Position(1, 0),
                 new Position(1, 1),
                 new Position(1, 2)
@@ -21,8 +20,8 @@ namespace _12A_Tetris
             new Position[]
             {
                 new Position(0, 1),
-                new Position(0, 2),
                 new Position(1, 1),
+                new Position(1, 2),
                 new Position(2, 1)
             },
             new Position[]
@@ -30,20 +29,20 @@ namespace _12A_Tetris
                 new Position(1, 0),
                 new Position(1, 1),
                 new Position(1, 2),
-                new Position(2, 2)
+                new Position(2, 1)
             },
             new Position[]
             {
                 new Position(0, 1),
+                new Position(1, 0),
                 new Position(1, 1),
-                new Position(2, 0),
                 new Position(2, 1)
             }
         };
 
         public override int Id
         {
-            get { return 2; }
+            get { return 6; }
         }
         protected override Position StartOffset
         {

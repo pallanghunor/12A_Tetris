@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_12A_Tetris"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized">
+        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown">
     <Window.Resources>
         <LinearGradientBrush x:Key="WindowBackround" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Color="Black" Offset="0.0" />
+            <GradientStop Color="Black" Offset="-0.05" />
             <GradientStop Color="Purple" Offset="0.2" />
             <GradientStop Color="Purple" Offset="0.5" />
             <GradientStop Color="Purple" Offset="0.8" />
-            <GradientStop Color="Black" Offset="1.0" />
+            <GradientStop Color="Black" Offset="1.05" />
         </LinearGradientBrush>
     </Window.Resources>
     <Window.Background>
@@ -21,14 +21,45 @@
         <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="IndianRed">
+        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="#101010" Width="500" Height="1000">
             
         </Grid>
-        <Grid x:Name="nextBlockGrid" Grid.Column="2" Background="LightBlue" Width="400" Height="200" VerticalAlignment="Top" Margin="0,50,0,0">
-            
+        <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="50" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock Text="Next" FontSize="70" Foreground="White" TextAlignment="Center"/>
+            <Border Width="250" Height="620" Background="#101010" CornerRadius="30">
+                <Grid x:Name="nextBlocksGrid" Grid.Column="2" Width="250" Height="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                </Grid>
+            </Border>
+        </StackPanel>
+        
+        
+        <Grid x:Name="PauseMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="PauseTxtBlck" Text="Pause" FontSize="100" TextAlignment="Center" Foreground="White"/>
+                <DockPanel HorizontalAlignment="Center">
+                    <Button x:Name="ResumeBtn" Content="Resume" FontSize="50" Width="200" Height="100" Margin="20"/>
+                    <Button x:Name="ExitBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="GameOverTxtBlck" Text="Game Over" FontSize="100" Foreground="White"/>
+                <TextBlock x:Name="FinalScoreTxtBlck" Text="Score: 0" FontSize="70" Foreground="White" Margin="0,0,0,50" TextAlignment="Center"/>
+                <DockPanel HorizontalAlignment="Center">
+                    <Button x:Name="RestartBtn" Content="Restart" FontSize="50" Width="200" Height="100" Margin="20"/>
+                    <Button x:Name="ExiBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20"/>
+                </DockPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

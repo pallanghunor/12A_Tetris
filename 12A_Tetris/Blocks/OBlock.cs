@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _12A_Tetris
+namespace _12A_Tetris.Blocks
 {
     public class OBlock : Block
     {

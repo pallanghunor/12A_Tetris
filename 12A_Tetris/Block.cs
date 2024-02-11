@@ -34,5 +34,16 @@ namespace _12A_Tetris
         {
             rotationState = (rotationState + Tiles.Length - 1) % Tiles.Length;
         }
+
+        public void Move(int row, int column)
+        {
+            offset = new Position(offset.Row + row, offset.Column + column);
+        }
+
+        public void Reset()
+        {
+            offset = new Position(StartOffset.Row, StartOffset.Column);
+            rotationState = 0;
+        }
     }
 }

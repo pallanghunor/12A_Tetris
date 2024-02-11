@@ -16,9 +16,168 @@ namespace _12A_Tetris
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ImageSource[] tileImages = new ImageSource[]
+        {
+            new BitmapImage(new Uri("Assets/TileEmpty.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileCyan.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileBlue.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileOrange.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileYellow.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileGreen.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TilePurple.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/TileRed.png", UriKind.Relative))
+        };
+
+        private ImageSource[] blockImages = new ImageSource[]
+        {
+            new BitmapImage(new Uri("Assets/Block-Empty.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-I.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-J.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-L.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-O.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-S.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-T.png", UriKind.Relative)),
+            new BitmapImage(new Uri("Assets/Block-Z.png", UriKind.Relative))
+        };
+
+        private Game game = new Game();
         public MainWindow()
         {
             InitializeComponent();
+            GameLoop();
+        }
+
+        private void GenerateGameGrid()
+        {
+            for (int row = 0; row < game.Grid.Rows - 2; row++)
+            {
+                gameGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(50) });
+            }
+            for (int column = 0; column < game.Grid.Columns; column++)
+            {
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+            }
+        }
+
+        private void DrawGameGrid(GameGrid grid)
+        {
+            gameGrid.Children.Clear();
+            for (int row = 0; row < grid.Rows - 2; row++)
+            {
+                for (int column = 0; column < grid.Columns; column++)
+                {
+                    Image tile = new Image();
+                    tile.Source = tileImages[grid[row + 2, column]];
+                    Grid.SetRow(tile, row);
+                    Grid.SetColumn(tile, column);
+                    gameGrid.Children.Add(tile);
+                }
+            }
+        }
+
+        private void DrawCurrentBlock(Block block)
+        {
+            foreach (var p in block.GetTilePositions())
+            {
+                Image tile = new Image();
+                tile.Source = tileImages[block.Id];
+                if (p.Row >= 2)
+                {
+                    Grid.SetRow(tile, p.Row - 2);
+                    Grid.SetColumn(tile, p.Column);
+                    gameGrid.Children.Add(tile);
+                }
+            }
+        }
+
+        private void DrawBlockQueue(BlockQueue blockQueue)
+        {
+            for ( int i = 0; i < blockQueue.blocksQueue.Length; i++)
+            {
+                Image block = new Image();
+                block.Source = blockImages[blockQueue.blocksQueue[i].Id];
+                Grid.SetRow(block, i);
+                block.Margin = new Thickness(5);
+                nextBlocksGrid.Children.Add(block);
+            }
+        }
+
+        private void DrawGhostBlock(Block block)
+        {
+            int dropDistance = game.BlockDropDistance();
+
+            foreach (var p in block.GetTilePositions())
+            {
+                Image tile = new Image();
+                tile.Source = tileImages[block.Id];
+                tile.Opacity = 0.25;
+                if (p.Row + dropDistance >= 2)
+                {
+                    Grid.SetRow(tile, p.Row + dropDistance - 2);
+                    Grid.SetColumn(tile, p.Column);
+                    gameGrid.Children.Add(tile);
+                }
+            }
+        }
+
+        private void Draw()
+        {
+            gameGrid.Children.Clear();
+            nextBlocksGrid.Children.Clear();
+            GenerateGameGrid();
+            DrawGameGrid(game.Grid);
+            DrawGhostBlock(game.CurrentBlock);
+            DrawCurrentBlock(game.CurrentBlock);
+            DrawBlockQueue(game.BlockQueue);
+            scoreTxtBlck.Text = $"Score: {game.Score}";
+        }
+
+        private async Task GameLoop()
+        {
+            Draw();
+            while (!game.GameOver)
+            {
+                await Task.Delay(500);
+                game.MoveBlockDown();
+                Draw();
+            }
+
+            GameOverMenu.Visibility = Visibility.Visible;
+            FinalScoreTxtBlck.Text = $"Final Score: {game.Score}";
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (game.GameOver)
+            {
+                return;
+            }
+
+            switch (e.Key)
+            {
+                case Key.Left:
+                    game.MoveBlockLeft();
+                    break;
+                case Key.Right:
+                    game.MoveBlockRight();
+                    break;
+                case Key.Up:
+                    game.RotateBlockClockwise();
+                    break;
+                case Key.Down:
+                    game.MoveBlockDown();
+                    break;
+                case Key.Z:
+                    game.RotateBlockCounterClockwise();
+                    break;
+                case Key.Space:
+                    game.DropBlock();
+                    break;
+                default:
+                    return;
+            }
+
+            Draw();
         }
     }
 }
