@@ -51,13 +51,13 @@
                 </DockPanel>
             </StackPanel>
         </Grid>
-        <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
+        <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="GameOverTxtBlck" Text="Game Over" FontSize="100" Foreground="White"/>
                 <TextBlock x:Name="FinalScoreTxtBlck" Text="Score: 0" FontSize="70" Foreground="White" Margin="0,0,0,50" TextAlignment="Center"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="RestartBtn" Content="Restart" FontSize="50" Width="200" Height="100" Margin="20"/>
-                    <Button x:Name="ExiBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20"/>
+                    <Button x:Name="RestartBtn" Content="Restart" FontSize="50" Width="200" Height="100" Margin="20" Click="Restart_Click"/>
+                    <Button x:Name="ExiBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>

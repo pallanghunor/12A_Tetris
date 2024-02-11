@@ -179,5 +179,21 @@ namespace _12A_Tetris
 
             Draw();
         }
+
+        private async void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            game = new Game();
+            GameOverMenu.Visibility= Visibility.Hidden;
+            await GameLoop();
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (MessageBox.Show("Do you want to close this window?","Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
     }
 }
