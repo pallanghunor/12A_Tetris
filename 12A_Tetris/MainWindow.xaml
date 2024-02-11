@@ -44,7 +44,10 @@
         <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="#101010" Width="500" Height="1000">
             
         </Grid>
-        <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="50" HorizontalAlignment="Center"/>
+        <StackPanel>
+            <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="50" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="highscoreTxtBlck" Grid.Column="0" Text="Highest score: 0" FontSize="70" Foreground="White" Margin="50" HorizontalAlignment="Center"/>
+        </StackPanel>
         <StackPanel Grid.Column="2" VerticalAlignment="Center">
             <TextBlock Text="Next" FontSize="70" Foreground="White" TextAlignment="Center"/>
             <Border Width="250" Height="620" Background="#101010" CornerRadius="30">
