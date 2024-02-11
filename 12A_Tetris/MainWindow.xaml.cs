@@ -203,11 +203,7 @@ namespace _12A_Tetris
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-
-            if (MessageBox.Show("Do you want to close this window?","Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         private void FileWrite(int NewScore)

@@ -35,14 +35,14 @@
     <Window.Background>
         <StaticResource ResourceKey="WindowBackround"/>
     </Window.Background>
-        <Grid>
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="#101010" Width="500" Height="1000">
-            
+
         </Grid>
         <StackPanel>
             <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="50" HorizontalAlignment="Center"/>
@@ -65,7 +65,7 @@
                 Height="40" Width="40" Margin="20"
                 VerticalAlignment="Top" HorizontalAlignment="Right"
                 Background="Purple" CornerRadius="30">
-            <Button x:Name="closeBtn" Style="{StaticResource closeButton}" Height="40" Width="40" Content="X" FontSize="25" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Button x:Name="closeBtn" Style="{StaticResource closeButton}" Width="40" Content="X" FontSize="30" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Click="Exit_Click"/>
         </Border>
 
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
@@ -81,7 +81,7 @@
                 <TextBlock x:Name="PauseTxtBlck" Text="Pause" FontSize="100" TextAlignment="Center" Foreground="White"/>
                 <DockPanel HorizontalAlignment="Center">
                     <Button x:Name="ResumeBtn" Content="Resume" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
-                    <Button x:Name="ExitBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20"/>
+                    <Button x:Name="ExitBtn" Content="Exit" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
