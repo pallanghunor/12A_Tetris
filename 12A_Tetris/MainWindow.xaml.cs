@@ -162,7 +162,7 @@ namespace _12A_Tetris
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (game.GameOver)
+            if (game.GameOver || game.Paused)
             {
                 return;
             }
@@ -255,6 +255,7 @@ namespace _12A_Tetris
         private async void StartGameBtn_Click(object sender, RoutedEventArgs e)
         {
             startGameMenu.Visibility = Visibility.Hidden;
+            game.Paused = false;
             await GameLoop();
         }
     }

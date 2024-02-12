@@ -41,6 +41,7 @@ namespace _12A_Tetris
             Grid = new GameGrid(22, 10);
             BlockQueue = new BlockQueue();
             CurrentBlock = BlockQueue.GetNextBlock();
+            Paused = true;
         }
 
         private bool BlockFits()
