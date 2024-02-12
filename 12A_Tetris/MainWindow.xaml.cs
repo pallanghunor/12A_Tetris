@@ -43,15 +43,22 @@ namespace _12A_Tetris
         };
         
         private Game game = new Game();
-        private int gameSpeed = 200;
 
         private DateTime lastMoveTime = DateTime.MinValue;
         private TimeSpan moveInterval = TimeSpan.FromMilliseconds(75);
         public MainWindow()
         {
             InitializeComponent();
+            FillLevelcbx();
         }
 
+        private void FillLevelcbx()
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                levelCbx.Items.Add(i);
+            }
+        }
         private void GenerateGameGrid()
         {
             for (int row = 0; row < game.Grid.Rows - 2; row++)
@@ -145,7 +152,7 @@ namespace _12A_Tetris
             {
                 if (!game.Paused)
                 {
-                    await Task.Delay(gameSpeed);
+                    await Task.Delay(game.GameSpeed);
                     game.MoveBlockDown();
                     Draw();
                 } 
@@ -255,6 +262,9 @@ namespace _12A_Tetris
         private async void StartGameBtn_Click(object sender, RoutedEventArgs e)
         {
             startGameMenu.Visibility = Visibility.Hidden;
+            int level = int.Parse(levelCbx.SelectedItem.ToString());
+            game.SetGameLvl(level);
+            levelTxtBlck.Text = $"Level: {game.Level}";
             game.Paused = false;
             await GameLoop();
         }

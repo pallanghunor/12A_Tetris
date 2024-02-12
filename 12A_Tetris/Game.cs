@@ -32,9 +32,11 @@ namespace _12A_Tetris
 
         public GameGrid Grid { get; }
         public BlockQueue BlockQueue { get; }
+        public int GameSpeed { get; private set; }
         public bool GameOver { get; private set; }
         public bool Paused { get; set; }
         public int Score { get; private set; }
+        public int Level { get;  set; }
 
         public Game()
         {
@@ -147,6 +149,12 @@ namespace _12A_Tetris
         {
             CurrentBlock.Move(BlockDropDistance(), 0);
             PlaceBlock();
+        }
+
+        public void SetGameLvl(int level)
+        {
+            Level = level;
+            GameSpeed = 1000 - (level - 1) * 200;
         }
     }
 }
