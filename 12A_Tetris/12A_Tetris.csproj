@@ -20,6 +20,8 @@
     <None Remove="Assets\Block-T.png" />
     <None Remove="Assets\Block-Z.png" />
     <None Remove="Assets\close.png" />
+    <None Remove="Assets\controls.png" />
+    <None Remove="Assets\help.png" />
     <None Remove="Assets\Icon.ico" />
     <None Remove="Assets\pause.png" />
     <None Remove="Assets\tetris-logo.png" />
@@ -44,6 +46,8 @@
     <Resource Include="Assets\Block-T.png" />
     <Resource Include="Assets\Block-Z.png" />
     <Resource Include="Assets\close.png" />
+    <Resource Include="Assets\controls.png" />
+    <Resource Include="Assets\help.png" />
     <Resource Include="Assets\Icon.ico" />
     <Resource Include="Assets\pause.png" />
     <Resource Include="Assets\tetris-logo.png" />

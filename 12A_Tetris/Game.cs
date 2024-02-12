@@ -33,12 +33,16 @@ namespace _12A_Tetris
 
         public GameGrid Grid { get; }
         public BlockQueue BlockQueue { get; }
+        public Block HeldBlock { get;private set; }
+        public bool CanHold { get; private set; }
         public int GameSpeed { get; private set; }
         public bool GameOver { get; private set; }
         public bool Paused { get; set; }
         public int Score { get; private set; }
-        public int Level { get;  set; }
-        public string Name { get; set; }
+        public int Level { get; set; }
+
+        private string _Name = "Anonymous";
+        public string Name { get { return _Name; } set { if (value != null && value.Length > 0) { _Name = value; } } }
         public List<Score> ScoreHistory { get;private set; }
 
         public Game()
@@ -48,6 +52,7 @@ namespace _12A_Tetris
             CurrentBlock = BlockQueue.GetNextBlock();
             ScoreHistory = new List<Score>();
             Paused = true;
+            CanHold = true;
             ReadScoreHistory();
         }
 
@@ -61,6 +66,25 @@ namespace _12A_Tetris
                 }
             }
             return true;
+        }
+
+        public void HoldBlock()
+        {
+            if (CanHold)
+            {
+                if (HeldBlock == null)
+                {
+                    HeldBlock = CurrentBlock;
+                    CurrentBlock = BlockQueue.GetNextBlock();
+                }
+                else
+                {
+                    var temp = CurrentBlock;
+                    CurrentBlock = HeldBlock;
+                    HeldBlock = temp;
+                }
+                CanHold = false;
+            }
         }
 
         public void RotateBlockClockwise()
@@ -120,6 +144,7 @@ namespace _12A_Tetris
             else
             {
                 CurrentBlock = BlockQueue.GetNextBlock();
+                CanHold = true;
             }
         }
 

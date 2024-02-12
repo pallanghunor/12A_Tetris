@@ -56,6 +56,8 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="redButton" TargetType="Button">
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -67,7 +69,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFFF1C1C" />
+                    <Setter Property="Background" Value="#FFFD3535" />
                     <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
             </Style.Triggers>
@@ -127,6 +129,7 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
+        <!--Game-->
         <Border Grid.Column="1" Width="530" Height="1030" Background="#CC000000" CornerRadius="30">
             <Grid x:Name="gameGrid" Grid.Column="1" Background="#101010" Width="500" Height="1000"></Grid>
         </Border>
@@ -145,17 +148,26 @@
             </StackPanel>
         </Border>
         <StackPanel Grid.Column="2" VerticalAlignment="Center">
-            <TextBlock Text="Next" FontSize="70" Foreground="White" TextAlignment="Center"/>
-            <Border Width="250" Height="620" Background="#101010" CornerRadius="30">
-                <Grid x:Name="nextBlocksGrid" Grid.Column="2" Width="250" Height="600">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                </Grid>
-            </Border>
+            <StackPanel>
+                <TextBlock Text="Hold" FontSize="70" Foreground="White" TextAlignment="Center"/>
+                <Border Width="250" Height="220" Background="#101010" CornerRadius="30">
+                    <Grid x:Name="heldBlockGrid" Grid.Column="2" Width="250" Height="200"/>
+                </Border>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Next" FontSize="70" Foreground="White" TextAlignment="Center"/>
+                <Border Width="250" Height="620" Background="#101010" CornerRadius="30">
+                    <Grid x:Name="nextBlocksGrid" Grid.Column="2" Width="250" Height="600">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </Border>
+            </StackPanel>
         </StackPanel>
+        
         <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
             <Border Width="40" Height="40" Margin="20,20,10,20" VerticalAlignment="Top" Background="Purple">
                 <Button x:Name="pauseBtn" Style="{StaticResource menuButton}" Click="pauseBtn_Click">
@@ -170,11 +182,10 @@
             </Border>
         </StackPanel>
         
-
+        <!--Start Menu-->
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
-            <Image Source="Assets/tetris-logo.png" Width="600" Height="300" Margin="0,50,0,0" VerticalAlignment="Top"/>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <!--<TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="150" Foreground="White"/>-->
+            <Image Source="Assets/tetris-logo.png" Width="1500" Height="1080" VerticalAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,150">
                 <Border Background="{StaticResource TransparentWhite}" CornerRadius="30" Height="80" Width="350">
                     <Grid>
                         <TextBox Height="80" Width="350" Padding="10,0,10,0" x:Name="NameTBx" FontSize="50" Foreground="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="NameTBx_TextChanged">
@@ -185,14 +196,12 @@
                         <Label x:Name="nameTbxPlaceholder" Content="Name" FontSize="50" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Opacity="0.5" IsHitTestVisible="False"/>
                     </Grid>
                 </Border>
-                
-                <!--<StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Level:" FontSize="75"/>
-                    <ComboBox x:Name="levelCbx" Height="70" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20" FontSize="50" SelectedIndex="0"/>
-                </StackPanel>-->
                 <Button x:Name="levelBtn" Content="Level: 1" Style="{StaticResource grayButton}" Foreground="White" FontSize="45" Height="70" Width="350" Margin="20" Click="levelBtn_Click"/>
                 <DockPanel HorizontalAlignment="Center">
                     <Button x:Name="StartGameBtn" Content="Play" Style="{StaticResource greenButton}" FontSize="50" Width="300"  Foreground="White" Height="80" Margin="20" Click="StartGameBtn_Click"/>
+                    <Button x:Name="helpBtn" Width="80" Height="80" Style="{StaticResource grayButton}" Click="helpBtn_Click">
+                        <Image Source="Assets/help.png" Width="80" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
                 </DockPanel>
             </StackPanel>
             <Border Height="40" Width="40" Margin="10,20,20,20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Purple">
@@ -201,22 +210,39 @@
                 </Button>
             </Border>
         </Grid>
+        
+        <!--Pause Menu-->
         <Grid x:Name="PauseMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="PauseTxtBlck" Text="Pause" FontSize="100" TextAlignment="Center" Foreground="White"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="ResumeBtn" Content="Resume" Background="Green" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
-                    <Button x:Name="ExitBtn" Content="Exit" Background="red" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
+                    <Button x:Name="ResumeBtn" Content="Resume" Style="{StaticResource greenButton}" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="ResumeBtn_Click"/>
+                    <Button x:Name="ExitBtn" Content="Exit" Style="{StaticResource redButton}" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>
+
+        <!--Help Menu-->
+        <Grid x:Name="HelpMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="HelpTxtBlck" Text="Help" FontSize="100" TextAlignment="Center" Foreground="White"/>
+                <Border CornerRadius="20" Width="900" Height="500" Margin="0,20,0,0">
+                    <Border.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="Assets/controls.png"/>
+                    </Border.Background>
+                </Border>
+                <Button x:Name="BackBtn" Content="Back" Style="{StaticResource greenButton}" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="BackBtn_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!--Game Over Menu-->
         <Grid x:Name="GameOverMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="GameOverTxtBlck" Text="Game Over" FontSize="100" Foreground="White"/>
                 <TextBlock x:Name="FinalScoreTxtBlck" Text="Score: 0" FontSize="70" Foreground="White" Margin="0,0,0,50" TextAlignment="Center"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="RestartBtn" Content="Restart" Background="Green" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Restart_Click"/>
-                    <Button x:Name="ExiBtn" Content="Exit" Background="Red" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
+                    <Button x:Name="RestartBtn" Content="Restart" Style="{StaticResource greenButton}" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Restart_Click"/>
+                    <Button x:Name="ExiBtn" Content="Exit" Style="{StaticResource redButton}" Foreground="White" FontSize="50" Width="200" Height="100" Margin="20" Click="Exit_Click"/>
                 </DockPanel>
             </StackPanel>
         </Grid>

@@ -114,6 +114,17 @@ namespace _12A_Tetris
             }
         }
 
+        private void DrawHeldBlock(Block block)
+        {
+            heldBlockGrid.Children.Clear();
+            if (block != null)
+            {
+                Image blockImage = new Image();
+                blockImage.Source = blockImages[block.Id];
+                heldBlockGrid.Children.Add(blockImage);
+            }
+        }
+
         private void DrawGhostBlock(Block block)
         {
             int dropDistance = game.BlockDropDistance();
@@ -141,6 +152,7 @@ namespace _12A_Tetris
             DrawGhostBlock(game.CurrentBlock);
             DrawCurrentBlock(game.CurrentBlock);
             DrawBlockQueue(game.BlockQueue);
+            DrawHeldBlock(game.HeldBlock);
             scoreTxtBlck.Text = $"Score: {game.Score}";
 
         }
@@ -201,6 +213,9 @@ namespace _12A_Tetris
                     break;
                 case Key.Space:
                     game.DropBlock();
+                    break;
+                case Key.C:
+                    game.HoldBlock();
                     break;
                 case Key.P:
                     pauseGame();
@@ -274,13 +289,24 @@ namespace _12A_Tetris
 
         private void levelBtn_Click(object sender, RoutedEventArgs e)
         {
-            // write a code that will change the text of the levelBtn to the current level + 1 until it reaches 5, then it will reset to 1
             game.Level++;
             if(game.Level > 5)
             {
                 game.Level = 1;
             }
             levelBtn.Content = $"Level: {game.Level}";
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            HelpMenu.Visibility = Visibility.Hidden;
+            startGameMenu.Visibility = Visibility.Visible;
+        }
+
+        private void helpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            startGameMenu.Visibility = Visibility.Hidden;
+            HelpMenu.Visibility = Visibility.Visible;
         }
     }
 }
