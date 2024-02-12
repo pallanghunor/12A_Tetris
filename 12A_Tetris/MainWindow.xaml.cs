@@ -226,7 +226,7 @@ namespace _12A_Tetris
         {
             game = new Game();
             GameOverMenu.Visibility= Visibility.Hidden;
-            await GameLoop();
+            startGameMenu.Visibility = Visibility.Visible;
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
