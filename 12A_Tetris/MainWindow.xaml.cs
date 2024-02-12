@@ -43,6 +43,10 @@ namespace _12A_Tetris
         };
         
         private Game game = new Game();
+        private int gameSpeed = 200;
+
+        private DateTime lastMoveTime = DateTime.MinValue;
+        private TimeSpan moveInterval = TimeSpan.FromMilliseconds(75);
         public MainWindow()
         {
             InitializeComponent();
@@ -141,7 +145,7 @@ namespace _12A_Tetris
             {
                 if (!game.Paused)
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(gameSpeed);
                     game.MoveBlockDown();
                     Draw();
                 } 
@@ -158,7 +162,15 @@ namespace _12A_Tetris
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (game.GameOver || game.Paused)
+            if (game.GameOver)
+            {
+                return;
+            }
+
+            DateTime now = DateTime.Now;
+            TimeSpan elapsed = now - lastMoveTime;
+
+            if (elapsed < moveInterval)
             {
                 return;
             }
@@ -191,6 +203,7 @@ namespace _12A_Tetris
                     return;
             }
 
+            lastMoveTime = now;
             Draw();
         }
 
