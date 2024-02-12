@@ -14,6 +14,64 @@
             <GradientStop Color="Purple" Offset="0.8" />
             <GradientStop Color="Black" Offset="1.05" />
         </LinearGradientBrush>
+        <SolidColorBrush x:Key="TransparentWhite" Color="White" Opacity="0.8"/>
+        <Style x:Key="grayButton" TargetType="Button">
+            <Setter Property="Background" Value="gray" />
+            <Setter Property="BorderBrush" Value="gray" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF969696" />
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="greenButton" TargetType="Button">
+            <Setter Property="Background" Value="Green" />
+            <Setter Property="BorderBrush" Value="Green" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF00A000" />
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="redButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFFF1C1C" />
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0"/>
@@ -29,8 +87,34 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="Red" />
+                    <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="30">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="purple"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Window.Background>
@@ -42,18 +126,22 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="#101010" Width="500" Height="1000">
 
-        </Grid>
-        <Border Background="#CC000000" Height="600" Width="600" Opacity="0.7" CornerRadius="30" VerticalAlignment="Top" Margin="0,50,0,0"/>
-        <Border Height="600" Width="600" VerticalAlignment="Top" Margin="0,50,0,0">
+        <Border Grid.Column="1" Width="530" Height="1030" Background="#CC000000" CornerRadius="30">
+            <Grid x:Name="gameGrid" Grid.Column="1" Background="#101010" Width="500" Height="1000"></Grid>
+        </Border>
+        
+        <Border Background="#CC000000" Height="500" Width="600" Opacity="0.7" CornerRadius="30" VerticalAlignment="Top" Margin="0,50,0,0"/>
+        <Border Height="600" Width="600" VerticalAlignment="Top" Margin="0,20,0,0">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
-                <TextBlock x:Name="levelTxtBlck" Grid.Column="0" Text="Level: 1" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="highscoreTxtBlck" Grid.Column="0" Text="Highest score: 0" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="highscoreplayerTxtBlck" Grid.Column="0" Text="The best player:" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="highscoreplayernameTxtBlck" Grid.Column="0" Text="" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="levelTxtBlck" Grid.Column="0" Text="Level: 0" FontSize="70" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="Highest score:" FontSize="70" Foreground="Green" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="bestPlayerTxtBlck" Grid.Column="0" MaxWidth="400" FontSize="70" Margin="20" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="bestPlayerScoreTxtBlck" Grid.Column="0" MaxWidth="100" FontSize="70" Margin="20" HorizontalAlignment="Center"/>
+                </StackPanel>
             </StackPanel>
         </Border>
         <StackPanel Grid.Column="2" VerticalAlignment="Center">
@@ -84,18 +172,27 @@
         
 
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
+            <Image Source="Assets/tetris-logo.png" Width="600" Height="300" Margin="0,50,0,0" VerticalAlignment="Top"/>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="150" Foreground="White"/>
-                <Grid>
-                    <TextBox Height="70" Width="350" x:Name="NameTBx" FontSize="50" VerticalContentAlignment="Center" TextChanged="NameTBx_TextChanged"/>
-                    <Label x:Name="nameTbxPlaceholder" Content="Name" FontSize="50" Background="Transparent" Foreground="Black" Opacity="0.5" IsHitTestVisible="False"/>
-                </Grid>
-                <StackPanel Orientation="Horizontal">
+                <!--<TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="150" Foreground="White"/>-->
+                <Border Background="{StaticResource TransparentWhite}" CornerRadius="30" Height="80" Width="350">
+                    <Grid>
+                        <TextBox Height="80" Width="350" Padding="10,0,10,0" x:Name="NameTBx" FontSize="50" Foreground="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" TextChanged="NameTBx_TextChanged">
+                            <TextBox.Background>
+                                <SolidColorBrush Color="Transparent"/>
+                            </TextBox.Background>
+                        </TextBox>
+                        <Label x:Name="nameTbxPlaceholder" Content="Name" FontSize="50" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" Opacity="0.5" IsHitTestVisible="False"/>
+                    </Grid>
+                </Border>
+                
+                <!--<StackPanel Orientation="Horizontal">
                     <TextBlock Text="Level:" FontSize="75"/>
                     <ComboBox x:Name="levelCbx" Height="70" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20" FontSize="50" SelectedIndex="0"/>
-                </StackPanel>
+                </StackPanel>-->
+                <Button x:Name="levelBtn" Content="Level: 1" Style="{StaticResource grayButton}" Foreground="White" FontSize="45" Height="70" Width="350" Margin="20" Click="levelBtn_Click"/>
                 <DockPanel HorizontalAlignment="Center">
-                    <Button x:Name="StartGameBtn" Content="Start" FontSize="50" Width="300" Background="Green" Foreground="White" Height="100" Margin="20" Click="StartGameBtn_Click"/>
+                    <Button x:Name="StartGameBtn" Content="Play" Style="{StaticResource greenButton}" FontSize="50" Width="300"  Foreground="White" Height="80" Margin="20" Click="StartGameBtn_Click"/>
                 </DockPanel>
             </StackPanel>
             <Border Height="40" Width="40" Margin="10,20,20,20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Purple">

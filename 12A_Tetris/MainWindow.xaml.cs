@@ -49,16 +49,16 @@ namespace _12A_Tetris
         public MainWindow()
         {
             InitializeComponent();
-            FillLevelcbx();
+            game.Level = 1;
         }
 
-        private void FillLevelcbx()
-        {
-            for (int i = 1; i <= 5; i++)
-            {
-                levelCbx.Items.Add(i);
-            }
-        }
+        //private void FillLevelcbx()
+        //{
+        //    for (int i = 1; i <= 5; i++)
+        //    {
+        //        levelCbx.Items.Add(i);
+        //    }
+        //}
         private void GenerateGameGrid()
         {
             for (int row = 0; row < game.Grid.Rows - 2; row++)
@@ -142,8 +142,6 @@ namespace _12A_Tetris
             DrawCurrentBlock(game.CurrentBlock);
             DrawBlockQueue(game.BlockQueue);
             scoreTxtBlck.Text = $"Score: {game.Score}";
-            highscoreTxtBlck.Text = $"Highest score: ";
-
 
         }
 
@@ -166,7 +164,7 @@ namespace _12A_Tetris
 
             GameOverMenu.Visibility = Visibility.Visible;
             FinalScoreTxtBlck.Text = $"Final Score: {game.Score}";
-            FileWrite();
+            game.WriteScoreHistory();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -236,31 +234,6 @@ namespace _12A_Tetris
             this.Close();
         }
 
-
-        private void FileWrite()
-        {
-            StreamWriter sw = new StreamWriter("HighScore.txt", true);
-            sw.WriteLine($"{game.Name};{game.Level};{game.Score}");
-            sw.Close();
-        }
-
-        private void HighScore() 
-        {
-            if (File.Exists("HighScore.txt"))
-            {
-                List<Score> list = new List<Score>();
-                StreamReader sr = new StreamReader("HighScore.txt");
-                while (!sr.EndOfStream)
-                {
-                    list.Add(new Score(sr.ReadLine()));
-                }
-                sr.Close();
-                
-
-            }
-
-        }
-
         private void ResumeBtn_Click(object sender, RoutedEventArgs e)
         {
             game.Paused = false;
@@ -270,9 +243,14 @@ namespace _12A_Tetris
         private async void StartGameBtn_Click(object sender, RoutedEventArgs e)
         {
             startGameMenu.Visibility = Visibility.Hidden;
-            int level = int.Parse(levelCbx.SelectedItem.ToString());
-            game.SetGameLvl(level);
+            game.Name = NameTBx.Text;
             levelTxtBlck.Text = $"Level: {game.Level}";
+            if(game.ScoreHistory.Count > 0)
+            {
+                bestPlayerTxtBlck.Text = $"{game.ScoreHistory.Max(x => x.Name)}";
+                bestPlayerScoreTxtBlck.Text = $"{game.ScoreHistory.Max(x => x.Point)}";
+            }
+            game.SetGameSpeed();
             game.Paused = false;
             await GameLoop();
         }
@@ -292,6 +270,17 @@ namespace _12A_Tetris
             {
                 nameTbxPlaceholder.Visibility = Visibility.Visible;
             }
+        }
+
+        private void levelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // write a code that will change the text of the levelBtn to the current level + 1 until it reaches 5, then it will reset to 1
+            game.Level++;
+            if(game.Level > 5)
+            {
+                game.Level = 1;
+            }
+            levelBtn.Content = $"Level: {game.Level}";
         }
     }
 }

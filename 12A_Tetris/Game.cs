@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,13 +39,16 @@ namespace _12A_Tetris
         public int Score { get; private set; }
         public int Level { get;  set; }
         public string Name { get; set; }
+        public List<Score> ScoreHistory { get;private set; }
 
         public Game()
         {
             Grid = new GameGrid(22, 10);
             BlockQueue = new BlockQueue();
             CurrentBlock = BlockQueue.GetNextBlock();
+            ScoreHistory = new List<Score>();
             Paused = true;
+            ReadScoreHistory();
         }
 
         private bool BlockFits()
@@ -152,10 +156,31 @@ namespace _12A_Tetris
             PlaceBlock();
         }
 
-        public void SetGameLvl(int level)
+        public void SetGameSpeed()
         {
-            Level = level;
-            GameSpeed = 1000 - (level - 1) * 200;
+            GameSpeed = 1000 - (Level - 1) * 200;
+        }
+
+        public void WriteScoreHistory()
+        {
+            StreamWriter sw = new StreamWriter("scorehistory.txt", true);
+            sw.WriteLine($"{Name};{Level};{Score}");
+            sw.Close();
+        }
+
+        public void ReadScoreHistory()
+        {
+            if (File.Exists("scorehistory.txt"))
+            {
+                ScoreHistory = new List<Score>();
+                StreamReader sr = new StreamReader("scorehistory.txt");
+                while (!sr.EndOfStream)
+                {
+                    ScoreHistory.Add(new Score(sr.ReadLine()));
+                }
+                sr.Close();
+            }
+
         }
     }
 }
