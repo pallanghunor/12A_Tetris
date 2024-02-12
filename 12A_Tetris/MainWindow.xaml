@@ -14,8 +14,9 @@
             <GradientStop Color="Purple" Offset="0.8" />
             <GradientStop Color="Black" Offset="1.05" />
         </LinearGradientBrush>
-        <Style x:Key="closeButton" TargetType="Button">
+        <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -65,13 +66,20 @@
                 </Grid>
             </Border>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+            <Border Width="40" Height="40" Margin="20,20,10,20" VerticalAlignment="Top" Background="Purple">
+                <Button x:Name="pauseBtn" Style="{StaticResource menuButton}" Click="pauseBtn_Click">
+                    <Image Source="Assets/pause.png" Width="35" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+            </Border>
 
-        <Border Grid.Column="2" 
-                Height="40" Width="40" Margin="20"
-                VerticalAlignment="Top" HorizontalAlignment="Right"
-                Background="Purple">
-            <Button x:Name="closeBtn" Style="{StaticResource closeButton}" Width="40" Content="X" FontSize="30" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Click="Exit_Click"/>
-        </Border>
+            <Border Height="40" Width="40" Margin="10,20,20,20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Purple">
+                <Button x:Name="closeBtn" Style="{StaticResource menuButton}" Click="Exit_Click">
+                    <Image Source="Assets/close.png" Width="35" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+            </Border>
+        </StackPanel>
+        
 
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

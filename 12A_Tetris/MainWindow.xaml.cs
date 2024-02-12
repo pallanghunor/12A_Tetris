@@ -196,8 +196,10 @@ namespace _12A_Tetris
                     game.DropBlock();
                     break;
                 case Key.P:
-                    game.Paused = true;
-                    PauseMenu.Visibility = Visibility.Visible;
+                    pauseGame();
+                    break;
+                case Key.Escape:
+                    pauseGame();
                     break;
                 default:
                     return;
@@ -205,6 +207,12 @@ namespace _12A_Tetris
 
             lastMoveTime = now;
             Draw();
+        }
+
+        private void pauseGame()
+        {
+            game.Paused = true;
+            PauseMenu.Visibility = Visibility.Visible;
         }
 
         private async void Restart_Click(object sender, RoutedEventArgs e)
@@ -218,6 +226,7 @@ namespace _12A_Tetris
         {
             this.Close();
         }
+
 
         private void FileWrite(int NewScore)
         {
@@ -257,6 +266,11 @@ namespace _12A_Tetris
             startGameMenu.Visibility = Visibility.Hidden;
             game.Paused = false;
             await GameLoop();
+        }
+
+        private void pauseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pauseGame();
         }
     }
 }
