@@ -86,15 +86,23 @@
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="150" Foreground="White"/>
-                <TextBox Height="100" x:Name="NameTBx"/>
+                <Grid>
+                    <TextBox Height="70" Width="350" x:Name="NameTBx" FontSize="50" VerticalContentAlignment="Center" TextChanged="NameTBx_TextChanged"/>
+                    <Label x:Name="nameTbxPlaceholder" Content="Name" FontSize="50" Background="Transparent" Foreground="Black" Opacity="0.5" IsHitTestVisible="False"/>
+                </Grid>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Level:" FontSize="80"/>
-                    <ComboBox x:Name="levelCbx" Height="80" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20" FontSize="50" SelectedIndex="0"/>
+                    <TextBlock Text="Level:" FontSize="75"/>
+                    <ComboBox x:Name="levelCbx" Height="70" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20" FontSize="50" SelectedIndex="0"/>
                 </StackPanel>
                 <DockPanel HorizontalAlignment="Center">
                     <Button x:Name="StartGameBtn" Content="Start" FontSize="50" Width="300" Background="Green" Foreground="White" Height="100" Margin="20" Click="StartGameBtn_Click"/>
                 </DockPanel>
             </StackPanel>
+            <Border Height="40" Width="40" Margin="10,20,20,20" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Purple">
+                <Button x:Name="startGameMenucloseBtn" Style="{StaticResource menuButton}" Click="Exit_Click">
+                    <Image Source="Assets/close.png" Width="35" Height="35" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+            </Border>
         </Grid>
         <Grid x:Name="PauseMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

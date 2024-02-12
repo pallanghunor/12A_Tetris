@@ -281,5 +281,17 @@ namespace _12A_Tetris
         {
             pauseGame();
         }
+
+        private void NameTBx_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(NameTBx.Text != "")
+            {
+                nameTbxPlaceholder.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                nameTbxPlaceholder.Visibility = Visibility.Visible;
+            }
+        }
     }
 }
