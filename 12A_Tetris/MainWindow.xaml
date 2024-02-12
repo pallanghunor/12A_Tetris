@@ -45,13 +45,15 @@
         <Grid x:Name="gameGrid" Grid.Column="1" Margin="10" Background="#101010" Width="500" Height="1000">
 
         </Grid>
-        <Border Background="#CC000000" Height="500" Width="600" Opacity="0.7" CornerRadius="30" VerticalAlignment="Top" Margin="0,50,0,0"/>
-        <Border Height="500" Width="600" VerticalAlignment="Top" Margin="0,50,0,0">
+        <Border Background="#CC000000" Height="600" Width="600" Opacity="0.7" CornerRadius="30" VerticalAlignment="Top" Margin="0,50,0,0"/>
+        <Border Height="600" Width="600" VerticalAlignment="Top" Margin="0,50,0,0">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock x:Name="scoreTxtBlck" Grid.Column="0" Text="Score: 0" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
 
                 <TextBlock x:Name="levelTxtBlck" Grid.Column="0" Text="Level: 1" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="highscoreTxtBlck" Grid.Column="0" Text="Highest score: 0" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="highscoreplayerTxtBlck" Grid.Column="0" Text="The best player:" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="highscoreplayernameTxtBlck" Grid.Column="0" Text="" FontSize="70" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
             </StackPanel>
         </Border>
         <StackPanel Grid.Column="2" VerticalAlignment="Center">
@@ -84,6 +86,7 @@
         <Grid x:Name="startGameMenu" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Visible">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="StartGameTxtBlck" Text="Tetris" TextAlignment="Center" FontSize="150" Foreground="White"/>
+                <TextBox Height="100" x:Name="NameTBx"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Level:" FontSize="80"/>
                     <ComboBox x:Name="levelCbx" Height="80" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="20" FontSize="50" SelectedIndex="0"/>

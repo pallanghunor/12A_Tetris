@@ -37,6 +37,7 @@ namespace _12A_Tetris
         public bool Paused { get; set; }
         public int Score { get; private set; }
         public int Level { get;  set; }
+        public string Name { get; set; }
 
         public Game()
         {

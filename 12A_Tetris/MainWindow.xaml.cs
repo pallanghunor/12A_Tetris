@@ -142,7 +142,9 @@ namespace _12A_Tetris
             DrawCurrentBlock(game.CurrentBlock);
             DrawBlockQueue(game.BlockQueue);
             scoreTxtBlck.Text = $"Score: {game.Score}";
-            highscoreTxtBlck.Text = $"Highest score: {HighScore()}";
+            highscoreTxtBlck.Text = $"Highest score: ";
+
+
         }
 
         private async Task GameLoop()
@@ -164,7 +166,7 @@ namespace _12A_Tetris
 
             GameOverMenu.Visibility = Visibility.Visible;
             FinalScoreTxtBlck.Text = $"Final Score: {game.Score}";
-            FileWrite(game.Score);
+            FileWrite();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -235,31 +237,28 @@ namespace _12A_Tetris
         }
 
 
-        private void FileWrite(int NewScore)
+        private void FileWrite()
         {
             StreamWriter sw = new StreamWriter("HighScore.txt", true);
-            sw.WriteLine($"{NewScore}");
+            sw.WriteLine($"{game.Name};{game.Level};{game.Score}");
             sw.Close();
         }
 
-        private int HighScore() 
+        private void HighScore() 
         {
             if (File.Exists("HighScore.txt"))
             {
-                List<int> list = new List<int>();
+                List<Score> list = new List<Score>();
                 StreamReader sr = new StreamReader("HighScore.txt");
                 while (!sr.EndOfStream)
                 {
-                    list.Add(int.Parse(sr.ReadLine()));
+                    list.Add(new Score(sr.ReadLine()));
                 }
                 sr.Close();
-                return list.Max();
+                
 
             }
-            else
-            {
-                return 0;
-            }
+
         }
 
         private void ResumeBtn_Click(object sender, RoutedEventArgs e)
